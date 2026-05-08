@@ -1,0 +1,12 @@
+ecommerce_platform:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: ecommerce-data-platform-492602     # thay bằng project ID thật của bạn
+      dataset: staging
+      keyfile: /usr/local/airflow/include/gcp-credentials.json
+      location: asia-southeast1
+      threads: 4
+      timeout_seconds: 300

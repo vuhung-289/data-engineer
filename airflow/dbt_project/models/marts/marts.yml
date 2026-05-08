@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: fact_daily_summary
+    description: >
+      Bảng tổng hợp theo ngày — trái tim của toàn bộ pipeline.
+      Mỗi dòng = 1 ngày. Join từ transactions + exchange_rate + news.
+      Dùng cho Looker Studio dashboard và báo cáo business.
+
+    columns:
+      - name: order_date
+        description: "Ngày giao dịch (PK)"
+        tests:
+          - unique
+          - not_null
+
+      - name: gmv_vnd
+        description: "Gross Merchandise Value tính bằng VND"
+        tests:
+          - not_null
+
+      - name: gmv_usd
+        description: "GMV quy đổi sang USD theo tỷ giá Vietcombank"
+
+      - name: cancellation_rate_pct
+        description: "Tỉ lệ huỷ đơn (%)"
+        tests:
+          - not_null
+
+      - name: has_major_ecommerce_event
+        description: "True nếu ngày đó có >= 3 tin e-commerce nổi bật"

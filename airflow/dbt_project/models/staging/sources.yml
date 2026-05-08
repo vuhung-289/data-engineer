@@ -1,0 +1,54 @@
+version: 2
+
+sources:
+  - name: raw
+    database: ecommerce-data-platform-492602   # thay bằng project ID của bạn
+    schema: raw
+    description: "Raw data ingested từ GCS external tables"
+
+    tables:
+      - name: transactions
+        description: "Synthetic e-commerce transactions"
+        columns:
+          - name: transaction_id
+            description: "Primary key"
+            tests:
+              - unique
+              - not_null
+          - name: date
+            tests:
+              - not_null
+          - name: platform
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['shopee', 'tiki', 'lazada', 'sendo', 'other']
+          - name: order_status
+            tests:
+              - accepted_values:
+                  values: ['completed', 'cancelled', 'returned', 'pending', 'processing']
+          - name: total_amount_vnd
+            tests:
+              - not_null
+
+      - name: exchange_rate
+        description: "Tỷ giá Vietcombank hàng ngày"
+        columns:
+          - name: currency_code
+            tests:
+              - not_null
+              - accepted_values:
+                  values: ['USD', 'EUR', 'CNY', 'SGD', 'JPY']
+          - name: date
+            tests:
+              - not_null
+          - name: sell_rate
+            tests:
+              - not_null
+
+      - name: news
+        description: "Tin tức e-commerce từ RSS feeds"
+        columns:
+          - name: date
+            tests:
+              - not_null

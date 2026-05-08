@@ -1,0 +1,22 @@
+venv/
+.env
+gcp-credentials.json
+__pycache__/
+*.pyc
+data/
+logs/
+*.log
+.DS_Store
+
+# Airflow / Astro local artifacts
+airflow/logs/
+airflow/.astro/
+
+# dbt artifacts
+airflow/dbt_project/target/
+airflow/dbt_project/logs/
+airflow/dbt_project/dbt_packages/
+
+# Local environments
+.venv/
+env/
