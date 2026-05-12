@@ -34,7 +34,7 @@ DEFAULT_ARGS = {
 # ── Helper: lấy execution date ─────────────────────────────────────────────
 def get_execution_date(context) -> date:
     """Lấy ngày từ Airflow execution context — quan trọng cho backfill."""
-    return context["data_interval_start"].date()
+    return context["logical_date"].date()
 
 
 # ── Task functions ──────────────────────────────────────────────────────────
@@ -246,7 +246,7 @@ with DAG(
     dag_id="ecommerce_daily_pipeline",
     description="E-commerce daily ingestion + dbt transformation",
     schedule="0 6 * * *",       # 6:00 AM UTC mỗi ngày = 1:00 PM giờ VN
-    start_date=datetime(2026, 5, 8),
+    start_date=datetime(2026, 5, 11),
     catchup=False,               # True = backfill tự động khi deploy
     max_active_runs=3,          # Chạy tối đa 3 ngày song song khi backfill
     tags=["ecommerce", "ingestion", "dbt", "production"],
